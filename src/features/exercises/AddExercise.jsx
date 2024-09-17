@@ -15,7 +15,7 @@ const AddExercise = () => {
     if (name && reps && sets) {
       dispatch(
         addExercise({
-          id: exercises.length + 1,
+          id: Date.now(),
           name,
           reps: parseInt(reps),
           sets: parseInt(sets),

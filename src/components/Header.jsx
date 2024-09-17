@@ -7,8 +7,7 @@ const Header = () => {
         <h1 className="text-3xl font-bold">Fitness Tracker</h1>
       </div>
       <div className="bg-gray-300 px-4 py-2">
-
-      <AuthStatus />
+        <AuthStatus />
       </div>
     </header>
   );

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router";
 import PrivateRoute from "./routes/PrivateRoute";
 import Home from "./pages/Home";
 import Login from "./features/auth/Login";
+import Register from "./features/auth/Register";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </main>
     </div>

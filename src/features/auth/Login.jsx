@@ -4,16 +4,24 @@ import { login } from "./authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const registeredUsername = useSelector((state) => state.auth.username);
+  const registeredPassword = useSelector((state) => state.auth.password);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ username, password }));
-    navigate("/");
+    if (username === registeredUsername && password == registeredPassword) {
+      dispatch(login());
+      setError(null);
+      navigate("/");
+    } else {
+      setError("Invalid Username or Password!");
+    }
   };
 
   return (
