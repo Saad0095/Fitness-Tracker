@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./authSlice";
@@ -9,7 +11,9 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isPassShow, setIsPassShow] = useState(false);
   const [error, setError] = useState(null);
+
   const registeredUsername = useSelector((state) => state.auth.username);
   const registeredPassword = useSelector((state) => state.auth.password);
 
@@ -41,14 +45,27 @@ const Login = () => {
         </div>
         <div>
           <label className="block text-sm">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md"
-            placeholder="Password"
-            required
-          />
+          <div className="relative">
+            <input
+              type={isPassShow ? "text" : "password"}
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 border rounded-md"
+              placeholder="Password"
+              required
+            />
+            <span
+              onClick={() => setIsPassShow(!isPassShow)}
+              className="absolute right-2 top-2 cursor-pointer"
+            >
+              {isPassShow ? (
+                <FontAwesomeIcon icon={faEyeSlash} />
+              ) : (
+                <FontAwesomeIcon icon={faEye} />
+              )}
+            </span>
+          </div>
         </div>
         {error && <p className="text-red-600">{error}</p>}
         <button

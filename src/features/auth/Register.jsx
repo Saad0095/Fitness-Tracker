@@ -1,17 +1,20 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { register } from "./authSlice";
-import { useEffect } from "react";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isPassShow, setIsPassShow] = useState(false);
 
   const [registeration, setRegisteration] = useState({
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -60,15 +63,24 @@ const Register = () => {
         </div>
         <div>
           <label className="block text-sm">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={registeration.password}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-md"
-            placeholder="Password"
-            required
-          />
+          <div className="relative">
+            <input
+              type={isPassShow ? "text" : "password"}
+              name="password"
+              value={registeration.password}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-md"
+              placeholder="Password"
+              required
+            />
+            <span onClick={() => setIsPassShow(!isPassShow)} className="absolute right-2 top-2 cursor-pointer">
+              {isPassShow ? (
+                <FontAwesomeIcon icon={faEyeSlash} />
+              ) : (
+                <FontAwesomeIcon icon={faEye} />
+              )}
+            </span>
+          </div>
         </div>
         <button
           type="submit"
