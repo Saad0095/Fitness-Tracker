@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { register } from "./authSlice";
 import { useEffect } from "react";
 
@@ -23,17 +23,13 @@ const Register = () => {
     dispatch(
       register({
         username: registeration.username,
+        email: registeration.email,
         password: registeration.password,
       })
     );
     navigate("/login");
   };
 
-  useEffect(() => {
-    localStorage.setItem("username", registeration.username);
-    localStorage.setItem("password", registeration.password);
-  }, [registeration]);
-  
   return (
     <div className="mt-5">
       <h2 className="text-2xl font-bold">Register</h2>
@@ -74,7 +70,6 @@ const Register = () => {
             required
           />
         </div>
-        {/* {error && <p className="text-red-600">{error}</p>} */}
         <button
           type="submit"
           className="w-full px-3 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"

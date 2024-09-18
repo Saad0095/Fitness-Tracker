@@ -1,11 +1,26 @@
 import Header from "./components/Header";
-import { Route, Routes } from "react-router";
-import PrivateRoute from "./routes/PrivateRoute";
+import { Route, Routes, useNavigate } from "react-router";
+// import PrivateRoute from "./routes/PrivateRoute";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Home from "./pages/Home";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 
 function App() {
+  const navigate = useNavigate();
+
+  const { isRegistered, isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!isRegistered) {
+      navigate("/register");
+    } else if (isRegistered && !isAuthenticated) {
+      navigate("/login");
+    }
+
+  }, [isRegistered,isAuthenticated]);
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
@@ -14,9 +29,9 @@ function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute>
+              // <PrivateRoute>
                 <Home />
-              </PrivateRoute>
+              // </PrivateRoute>
             }
           />
           <Route path="/login" element={<Login />} />
