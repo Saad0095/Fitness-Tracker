@@ -1,6 +1,5 @@
 import Header from "./components/Header";
 import { Route, Routes, useNavigate } from "react-router";
-// import PrivateRoute from "./routes/PrivateRoute";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Home from "./pages/Home";
@@ -18,22 +17,14 @@ function App() {
     } else if (isRegistered && !isAuthenticated) {
       navigate("/login");
     }
-
-  }, [isRegistered,isAuthenticated]);
+  }, [isRegistered, isAuthenticated]);
 
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
       <main className="max-w-2xl mx-auto p-5">
         <Routes>
-          <Route
-            path="/"
-            element={
-              // <PrivateRoute>
-                <Home />
-              // </PrivateRoute>
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
